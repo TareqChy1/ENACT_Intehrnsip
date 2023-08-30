@@ -1,0 +1,214 @@
+\documentclass[a4paper,11pt,english,openany]{book}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel} % for accentuated characters
+\usepackage{lmodern} % Latin Modern font
+\usepackage{pifont} % DingBats font
+
+\usepackage
+[
+        a4paper,% other options: a3paper, a5paper, etc
+        left=2cm,
+        right=2cm,
+        top=3cm,
+        bottom=4cm,
+        % use vmargin=2cm to make vertical margins equal to 2cm.
+        % us  hmargin=3cm to make horizontal margins equal to 3cm.
+        % use margin=3cm to make all margins  equal to 3cm.
+]
+{geometry}% layout
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{longtable}
+\usepackage{adjustbox}
+\usepackage{caption}
+\captionsetup{font=small}
+\usepackage{appendix}
+%\usepackage{hyperref}
+\renewcommand{\footnotesize}{\scriptsize}
+\usepackage[pdftex,% utility for pdf format
+    pagebackref=true,% link in biblio with page number of \cite
+    hyperfootnotes=false,
+    linktocpage=true,% link with page number instead of whole line
+    breaklinks=true,% links possible on several lines 
+    colorlinks=true,% links in color and no box
+    citecolor=blue,
+    hyperindex,%
+    pdffitwindow,
+    pdfpagemode=UseOutlines,%=None,%UseNone,
+    hypertexnames=true, %false
+    bookmarksopen=true]{hyperref} % hyperlinks for references
+
+
+\usepackage{color}
+\usepackage{multirow}
+\usepackage{subfigure}
+
+\makeatother
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{airforceblue}{rgb}{0.36, 0.54, 0.66}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+	backgroundcolor=\color{backcolour},   
+	commentstyle=\color{airforceblue},
+	keywordstyle=\color{magenta},
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{codepurple},
+	basicstyle=\footnotesize,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    
+	numbersep=5pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=2
+}
+
+\usepackage{adjustbox}
+\usepackage{longtable}
+\usepackage{multirow}
+\usepackage{subfigure}
+%\renewcommand\UrlFont{\color{blue}\rmfamily}
+
+\newcommand\DMA[1]{\textcolor{black}{#1}}
+\newcommand{\ie}{\textit{i.e.,} }
+\newcommand{\eg}{\textit{e.g.,} }
+\newcommand{\etal}{\textit{et al.}}
+
+\newcommand{\annote}[2]{$\blacktriangleright${\textsc{#1}}{\textcolor{red}{#2}}}
+\newcommand\denisse[1]{\textcolor{red}{#1}}
+\newcommand{\denisseComment}[1]{\annote{Denisse~}{#1}}
+\newcommand{\sophie}[1]{\annote{Sophie}{#1}}
+
+\lstset{style=mystyle}
+
+\begin{document}
+
+\thispagestyle{empty}
+
+\begin{center}
+\vfill
+
+\vspace{4cm} 
+\begin{Large}
+Report
+\end{Large}
+
+\vspace{4cm}
+{\textbf{\huge
+ENACT - ENergy efficiency through ArChitectural Tactics for Software Engineering}}
+
+\vspace{2cm} 
+{\textbf{\large Tareq Md Rabiul Hossain CHY}}\\
+Masters 1 (M1) in Computer Science (Cyber-Physical Social Systems)
+
+\vspace{1cm}             
+Internship Supervisors : {\textbf{\large Sophie CHABRIDON (1) and Denisse MU\~NANTE ARZAPALO (2)}}\\
+
+(1) Institut Polytechnique de Paris / Télécom SudParis / SAMOVAR\\
+(2) ENSIIE / SAMOVAR / \'Evry, France\\
+
+
+\vspace{1 cm}
+MSc. Program Supervisor:
+\vspace{0.1 cm}
+\textbf{Maxime LEFRANCOIS (3)}\\ 
+\vspace{0.1 cm} 
+(3) Ecole des Mines de Saint-Étienne, Saint-Étienne, France\\
+
+\vspace{1cm}
+From 03/04/2023 to 31/08/2023\\
+
+\vfill
+
+%\titlegraphic{
+	 \parbox[c]{3cm}{\includegraphics[height=3cm]{Figures/edm.png}} \hspace{.25cm}
+	 \parbox[c]{2.5cm}{\includegraphics[width=1.5cm,height=2cm]{Figures/tsp.png}}
+	 \parbox[c]{2cm}{\includegraphics[width=1.5cm,height=2cm]{Figures/logo_ENSIIE.png}} 
+	 \hspace{.3cm}
+	 \parbox[c]{2.5cm}{\includegraphics[height=0.8cm]{Figures/2022_logo_samovar.png}} \hspace{1.5cm}
+%}
+
+
+%\includegraphics[height=1.5cm]{Figures/jmu.png}
+
+%\includegraphics[height=2cm]{Figures/edm.png}
+%\includegraphics[height=1.5cm]{Figures/tsp.png}
+%\includegraphics[height=1cm]{Figures/logo_ENSIIE.png}
+%\includegraphics[height=1cm]{Figures/2022_logo_samovar.png}
+\vspace*{2em}
+        
+\end{center}
+
+\newpage
+\thispagestyle{empty}
+\pagenumbering{roman}  % <-- Start Roman numbering
+\chapter*{Abstract}
+\addcontentsline{toc}{chapter}{Abstract}
+\input{chapter/abstract}
+
+
+
+
+\newpage
+\thispagestyle{empty}
+
+\tableofcontents
+\listoffigures
+\addcontentsline{toc}{chapter}{List of Figures}
+
+\newpage
+\pagenumbering{arabic} % <-- Switch to Arabic numbering
+
+\chapter{Introduction}
+\label{ch:Introduction}
+\input{chapter/introduction}
+
+\chapter{Background}
+\input{chapter/Background}
+
+\chapter{Literature Review}
+%: Code Refactoring, Genetic Improvement and Gin Tool
+\label{ch:literature_review}
+\input{chapter/literature_review}
+
+\chapter{Preliminary study for empirical evaluations}
+\label{ch:prem_study}
+\input{chapter/prem_experiment}
+
+\chapter{Proposal: Genetic Improvement toward Energy Efficiency}
+\label{ch:solution}
+\input{chapter/solution}
+
+\chapter{Conclusion and Next Steps}\label{ch:conclusion}
+\input{chapter/conclusion}
+\section{Next steps}\label{sec:nextSteps}
+\input{chapter/future_work}
+
+
+% Start the appendix environment
+\begin{appendices}
+
+\chapter{Experimental artifacts}
+\input{chapter/appendix_a}
+
+% Add more appendices as needed
+\end{appendices}
+
+%\phantomsection
+\addcontentsline{toc}{chapter}{Bibliography}
+\bibliographystyle{apalike}
+\bibliography{biblio}
+
+
+
+
+\end{document}

@@ -1,0 +1,141 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc} % Pour l'euro
+\usepackage[english,french]{babel} % caractères accentués en entrée
+\usepackage{lmodern} % police de caractères Latin Modern
+\usepackage{pifont} % accès à la police DingBats (companion p. 336)
+\usepackage{geometry} % layout
+\usepackage{eurosym} % symbole euro
+\usepackage{graphicx}
+
+\newcommand{\ie}{\textit{i.e.,} }
+\newcommand{\eg}{\textit{e.g.,} }
+\newcommand{\etal}{\textit{et al.}}
+\newcommand{\wrt}{w.r.t. }
+\newcommand{\sota}{state-of-the-art }
+\usepackage[table]{xcolor}% http://ctan.org/pkg/xcolor
+\definecolor{rltred}{rgb}{0.75,0,0}
+\definecolor{rltgreen}{rgb}{0,0.5,0}
+\definecolor{rltblue}{rgb}{0,0,0.75}
+\definecolor{rltgray}{rgb}{0.45,0.25,0.15}
+\definecolor{DarkGrey}{RGB}{169,169,169}
+\usepackage[pdftex,% utilitaire utilise pour transformation format pdf
+    pagebackref=false,% numero de page apres biblio pour retour page \cite
+    hyperfootnotes=false,% pose des probleme
+    linktocpage=true,% lien = numero de page, plutot que toute la ligne
+    breaklinks=true,% permet des liens sur plusieurs lignes
+    colorlinks,% au lieu de boites de couleur autour des liens
+    anchorcolor=black,
+    citecolor=rltgray,      % \cite{...}
+    filecolor=rltgreen,     % \href{...} local file
+    linkcolor=rltred,       % \ref{...} and \pageref{...}
+    urlcolor=rltblue,       % \href{...}{...} external (URL)
+    pdfproducer={pdfLaTeX},
+    hyperindex,%
+    pdffitwindow,
+    pdfpagemode=UseNone,
+    bookmarksopen=true,
+    bookmarksnumbered]{hyperref}
+
+% Marges, cf. page 182 du manuel ou/et page 85 du companion
+%\setlength{\topmargin}{-1.5 cm}
+\setlength{\voffset}{-3 cm}
+\setlength{\headheight}{1 cm}
+\setlength{\headsep}{1 cm}
+\setlength{\oddsidemargin}{-1 cm}
+\setlength{\evensidemargin}{-1 cm}
+\setlength{\textheight}{29cm}
+\setlength{\textwidth}{18cm}
+\parskip 0.5ex
+
+\title{{\normalsize Master Internship~---~5 to 6 months, starting between Feb. and Apr. 2023}\\
+ENACT - ENergy efficiency through ArChitectural Tactics for the Internet of Things}
+
+
+
+\author{Denisse Muñante (1) and Sophie Chabridon (2)\\
+\small (1)  \href{http://samovar.telecom-sudparis.eu/}{SAMOVAR} Lab,  \href{https://www.ensiie.fr}{ENSIIE} \\
+\small (2)  \href{http://samovar.telecom-sudparis.eu/}{SAMOVAR} Lab, \href{https://www.telecom-sudparis.eu}{Télécom SudParis}, \href{https://www.ip-paris.fr/}{Institut Polytechnique de Paris}\\
+\small \'Evry, France\\
+\small Contacts: denisse.munantearzapalo [at] ensiie.fr,  Sophie.Chabridon [at] telecom-sudparis.eu}
+
+\date{}
+
+\begin{document}
+\selectlanguage{english}
+\maketitle
+\thispagestyle{empty}
+
+\vspace{-0.25cm}
+%\noindent\textbf{Indemnity} 580~\euro~net monthly.
+
+\noindent\textbf{Keywords} Energy-efficiency, Software engineering, Internet of Things, Distributed systems, Middleware.
+
+\paragraph{Context.}
+Energy efficiency has already been considered for many years at the hardware level. However, powerful and cheaper computing resources have led to less resource optimization in software. Considering the planet resource limits and the increasing role of software in the Internet of things, there is an urgent need to design software with energy-efficiency as a requirement. 
+In practice, this means to consider energy-efficiency in software quality attributes at design time and then to implement architectural tactics~\cite{2021-Paradis} enforcing them. Moreover, usage conditions varying a lot at runtime, dynamic reconfiguration would enable additional energy savings.
+
+Calero and Piattini explore the environmental dimension of software engineering and define Green IT as the sustainable consumption of natural resources by hardware and software components of ICT~\cite{2015-Calero}. Green IT distinguishes between "Green by IT" and "Green in IT". "Green by IT" considers ICT as a means to optimize the consumption of natural resources (e.g. Smart Home,...), while "Green in IT" intends to lower the impact of ICT on natural resources. Consequently, Green in Software Engineering corresponds to the subpart of "Green in IT" which is focusing on methodologies and mechanisms to limit the environmental impact of software products.
+
+%efficacité : energy consumption and usefulness ?
+% usefulness lié à la qualité du service. priorités entre les services.
+
+%\begin{figure*}[htbp!]
+%    \centering
+%        \includegraphics[scale=0.25]{image}
+%  \caption{Image}
+%  \label{archi}
+%\end{figure*}
+
+\vspace{0.5cm}
+\paragraph{Internship objectives.}
+
+In the context of this internship, a \textbf{first objective} is to take into account environmental sustainability quality attributes, \eg saving energy consumption or keeping resources consumption low, in the design of software products and to provide recommendations to software engineers for developing software with low environmental impact. In addition to design time, such quality attributes should also be considered at runtime when usage conditions are established.
+%as usage conditions could mitigate the expected benefits. 
+A \textbf{second objective} is to explore dynamic reconfiguration solutions able to monitor energy consumption and the current execution context with the purpose of detecting and alleviating undesired scenarios, \eg rebound effects, at runtime.  
+%and take decisions to improve energy efficiency at runtime.
+% and detect and alleviate rebound effects
+
+\noindent Concretely the tasks that will be carried by the selected candidate:
+\begin{enumerate}
+    \item Study the \sota to collect the metrics~\cite{ergasheva2020metrics} used to assess green quality attributes for software products, and  
+    to explore the current green architectural tactics used in software engineering life-cycle~\cite{icse/NoureddineR15,taas/ElhabbashSBT19,adhoc/HorcasPF19,infsof/SaputriL21,2021-Paradis}.
+
+    \item Artefacts used at design-time: conceive a solution that supports architects and developers to include green quality attributes in the software development life-cycle, and select software architectures by recommending the architectures that respect the green quality attributes:
+%    \begin{itemize}
+%        \item the solution should allow to analyse the dependencies or conflicts among green quality attributes and other software quality attributes and requirements.
+%        \item the solution should consider variation points in software architectures thus allowing dynamic reconfiguration.
+%        \item the solution should contain appropriate (quantitative or qualitative) information  that allows the trade-off analysis of the software quality attributes.
+%       % \item examines the smart transportation case study~\cite{} to apply the envisaged solution.  
+%\end{itemize}
+
+     
+    \item Artefacts used at runtime: conceive a prototype that allows to explore and select ``appropriate'' architectures configurations when usage conditions are established and differs from the expected ones, \eg the actual data flow frequency is not as was expected or a resource state (longevity) make system risky. 
+    \begin{itemize}
+        \item the solution could be formulated as a multi-criteria problem for the self-reconfiguration decision making process. %\ie green quality attributes and other software quality attributes have been used when exploring candidate solutions. 
+        \item explore the \sota methods to solve the multi-criteria decision-making problem for self-reconfiguration, for instance a optimisation algorithm that explores solutions taking into account quality attributes is introduced in~\cite{ssbse/KifetewMGSSP17}.
+        
+        \item implement a prototype to simulate the self-reconfiguration when green quality attributes become deprecated or are violated.
+    \end{itemize}
+    
+\end{enumerate}
+
+%% \paragraph{Travail.}
+
+%% La liste des tâches ci-dessous est indicative du travail que devra fournir 
+%% le stagiaire au cours de ce projet de recherche:
+%% \begin{itemize}
+%% \item 
+%% \end{itemize}
+
+\bigskip
+\noindent{}This subject is part of the research works of the 
+\href{https://www.inf.telecom-sudparis.eu/dissem/}{DiSSEM} group concerning Distributed Systems, Software Engineering and Middleware, in the \href{http://www.inf.telecom-sudparis.eu/acmes}{ACMES} team
+of the \href{http://samovar.telecom-sudparis.eu/}{SAMOVAR} lab.
+
+\newpage
+\bibliographystyle{plain}
+\bibliography{biblio}
+
+
+\end{document}

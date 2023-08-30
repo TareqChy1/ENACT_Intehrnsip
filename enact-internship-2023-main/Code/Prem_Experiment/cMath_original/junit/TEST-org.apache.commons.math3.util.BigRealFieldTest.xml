@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite errors="0" failures="0" hostname="green" name="org.apache.commons.math3.util.BigRealFieldTest" tests="3" time="0.051" timestamp="2013-09-09T09:26:50">
+  <properties>
+    <property name="java.vendor" value="Oracle Corporation" />
+    <property name="sun.java.launcher" value="SUN_STANDARD" />
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers" />
+    <property name="env.SUDO_COMMAND" value="/usr/bin/python /home/green/Projects/refactoring/variabletoField_second.py" />
+    <property name="os.name" value="Linux" />
+    <property name="sun.boot.class.path" value="/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/resources.jar:/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/rt.jar:/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/sunrsasign.jar:/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/jsse.jar:/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/jce.jar:/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/charsets.jar:/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/netx.jar:/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/plugin.jar:/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/rhino.jar:/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/jfr.jar:/usr/lib/jvm/java-7-openjdk-amd64/jre/classes" />
+    <property name="env.PWD" value="/home/green/Desktop/Refactoring_Projects/CMath/cMath_original" />
+    <property name="env.LANG" value="en_US.UTF-8" />
+    <property name="java.vm.specification.vendor" value="Oracle Corporation" />
+    <property name="ant.home" value="/usr/share/ant" />
+    <property name="java.runtime.version" value="1.7.0_25-b30" />
+    <property name="env.DISPLAY" value=":0.0" />
+    <property name="user.name" value="root" />
+    <property name="ant.file.cMath_original" value="/home/green/Desktop/Refactoring_Projects/CMath/cMath_original/build.xml" />
+    <property name="env.USER" value="green" />
+    <property name="env.SHELL" value="/bin/bash" />
+    <property name="env.PATH" value="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin" />
+    <property name="user.language" value="en" />
+    <property name="sun.boot.library.path" value="/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/amd64" />
+    <property name="ant.project.default-target" value="build" />
+    <property name="ant.project.name" value="cMath_original" />
+    <property name="java.version" value="1.7.0_25" />
+    <property name="user.timezone" value="" />
+    <property name="sun.arch.data.model" value="64" />
+    <property name="ant.file.type.cMath_original" value="file" />
+    <property name="java.endorsed.dirs" value="/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/endorsed" />
+    <property name="sun.cpu.isalist" value="" />
+    <property name="sun.jnu.encoding" value="UTF-8" />
+    <property name="file.encoding.pkg" value="sun.io" />
+    <property name="ECLIPSE_HOME" value="../../../../../../usr/lib/eclipse" />
+    <property name="file.separator" value="/" />
+    <property name="java.specification.name" value="Java Platform API Specification" />
+    <property name="java.class.version" value="51.0" />
+    <property name="user.country" value="US" />
+    <property name="java.home" value="/usr/lib/jvm/java-7-openjdk-amd64/jre" />
+    <property name="java.vm.info" value="mixed mode" />
+    <property name="env.LOGNAME" value="green" />
+    <property name="ant.file" value="/home/green/Desktop/Refactoring_Projects/CMath/cMath_original/build.xml" />
+    <property name="os.version" value="3.5.0-36-generic" />
+    <property name="path.separator" value=":" />
+    <property name="java.vm.version" value="23.7-b01" />
+    <property name="env.LANGUAGE" value="en_US:en" />
+    <property name="ant.library.dir" value="/usr/share/ant/lib" />
+    <property name="junit.output.dir" value="junit" />
+    <property name="java.awt.printerjob" value="sun.print.PSPrinterJob" />
+    <property name="env.TERM" value="xterm" />
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle" />
+    <property name="env.SUDO_UID" value="1000" />
+    <property name="awt.toolkit" value="sun.awt.X11.XToolkit" />
+    <property name="user.home" value="/root" />
+    <property name="target" value="1.6" />
+    <property name="java.specification.vendor" value="Oracle Corporation" />
+    <property name="java.library.path" value="/usr/java/packages/lib/amd64:/usr/lib/jni:/lib:/usr/lib" />
+    <property name="java.vendor.url" value="http://java.oracle.com/" />
+    <property name="java.vm.vendor" value="Oracle Corporation" />
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment" />
+    <property name="sun.java.command" value="org.apache.tools.ant.launch.Launcher -cp  cMath_original" />
+    <property name="java.class.path" value="/usr/share/ant/lib/ant-launcher.jar:/usr/share/java/xmlParserAPIs.jar:/usr/share/java/xercesImpl.jar:/usr/share/ant/lib/ant-apache-bcel.jar:/usr/share/ant/lib/ant-commons-net.jar:/usr/share/ant/lib/ant-testutil.jar:/usr/share/ant/lib/ant-apache-log4j.jar:/usr/share/ant/lib/ant-junit.jar:/usr/share/ant/lib/ant-apache-bsf.jar:/usr/share/ant/lib/ant-junit4.jar:/usr/share/ant/lib/ant-commons-logging.jar:/usr/share/ant/lib/ant-jsch.jar:/usr/share/ant/lib/ant-antlr.jar:/usr/share/ant/lib/ant-jdepend.jar:/usr/share/ant/lib/ant-launcher.jar:/usr/share/ant/lib/ant-apache-oro.jar:/usr/share/ant/lib/ant.jar:/usr/share/ant/lib/ant-apache-regexp.jar:/usr/share/ant/lib/ant-javamail.jar:/usr/share/ant/lib/ant-apache-xalan2.jar:/usr/share/ant/lib/ant-apache-resolver.jar:/usr/share/ant/lib/ant-swing.jar:/usr/share/ant/lib/junit.jar:/usr/share/ant/lib/ant-jmf.jar:/usr/lib/jvm/java-7-openjdk-amd64/lib/tools.jar" />
+    <property name="ant.version" value="Apache Ant(TM) version 1.8.2 compiled on May 18 2012" />
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification" />
+    <property name="ant.file.type" value="file" />
+    <property name="java.vm.specification.version" value="1.7" />
+    <property name="sun.cpu.endian" value="little" />
+    <property name="sun.os.patch.level" value="unknown" />
+    <property name="debuglevel" value="source,lines,vars" />
+    <property name="env.HOME" value="/home/green" />
+    <property name="env.LS_COLORS" value="rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arj=01;31:*.taz=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lz=01;31:*.xz=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.axv=01;35:*.anx=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.axa=00;36:*.oga=00;36:*.spx=00;36:*.xspf=00;36:" />
+    <property name="java.io.tmpdir" value="/tmp" />
+    <property name="java.vendor.url.bug" value="http://bugreport.sun.com/bugreport/" />
+    <property name="os.arch" value="amd64" />
+    <property name="java.awt.graphicsenv" value="sun.awt.X11GraphicsEnvironment" />
+    <property name="java.ext.dirs" value="/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/ext:/usr/java/packages/lib/ext" />
+    <property name="env.SUDO_USER" value="green" />
+    <property name="user.dir" value="/home/green/Desktop/Refactoring_Projects/CMath/cMath_original" />
+    <property name="env.XAUTHORITY" value="/home/green/.Xauthority" />
+    <property name="line.separator" value="&#xa;" />
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM" />
+    <property name="env.COLORTERM" value="Terminal" />
+    <property name="basedir" value="/home/green/Desktop/Refactoring_Projects/CMath/cMath_original" />
+    <property name="ant.java.version" value="1.7" />
+    <property name="ant.core.lib" value="/usr/share/ant/lib/ant.jar" />
+    <property name="env.USERNAME" value="root" />
+    <property name="source" value="1.6" />
+    <property name="env.MAIL" value="/var/mail/root" />
+    <property name="file.encoding" value="UTF-8" />
+    <property name="env.SUDO_GID" value="1000" />
+    <property name="java.specification.version" value="1.7" />
+    <property name="ant.project.invoked-targets" value="cMath_original" />
+  </properties>
+  <testcase classname="org.apache.commons.math3.util.BigRealFieldTest" name="testZero" time="0.013" />
+  <testcase classname="org.apache.commons.math3.util.BigRealFieldTest" name="testOne" time="0.0" />
+  <testcase classname="org.apache.commons.math3.util.BigRealFieldTest" name="testSerial" time="0.006" />
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

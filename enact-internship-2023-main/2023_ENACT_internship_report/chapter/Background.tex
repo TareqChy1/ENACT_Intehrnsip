@@ -1,0 +1,119 @@
+The initial motivation and primary focus of this research work is to explore tactics for enhancing software energy efficiency. With this in mind, we  answer the first research question:
+
+\vspace{1em}
+\textbf{RQ1}: Which tactics help to improve Energy Efficiency?
+
+\vspace{1em}
+Enhancing software energy efficiency is an important goal in the development of modern software systems. Several tactics can be used to achieve this goal, including Architectural Tactics, Design Patterns, and Code Refactoring. 
+
+\begin{itemize}
+    \item \textbf{Architectural Tactics}:These tactics focus on adapting the software architecture for energy efficiency. For example, \cite{DBLP:conf/hicss/ParadisKT21} provide a basis for reasoning about design decisions for energy efficiency by deriving a set of reusable architectural tactics derived from the research literature, via a taxonomic literature review. Researchers used an open-search and snowballing methodology to obtain primary studies and then used thematic coding to identify commonalities among the design strategies described. The result of this process is a taxonomy of 10 architectural tactics for energy efficiency, which provide a rational basis for architectural design and analysis for energy efficiency. These tactics are grouped into three broad categories: Resource Monitoring, Resource Allocation, and Resource Adaptation. These categories serve as a high-level checklist for a software architect or a reviewer, and the true design thinking goes into how those categories are refined into specific tactics and how those tactics are in turn translated into code, patterns, and components.
+    \item \textbf{Design Patterns}:These are reusable solutions to common problems in software design that can be used to improve energy efficiency. For example, \cite{DBLP:conf/icse/NoureddineR15} presents a vision to automatically detect and transform design patterns during compilation for better energy efficiency without impacting existing coding practices. The authors propose compiler transformations for two design patterns, Observer and Decorator, and perform an initial evaluation of their energy efficiency. 
+    \item \textbf{Code Refactoring}:This is the process of restructuring existing code without changing its external behavior(i.e. functionalities) to improve its readability and maintainability. Refactoring techniques aim to reduce the energy consumption of the software. \cite{csanlialp2022energy} examines the effect of code refactoring techniques(e.g. Encapsulate field, Inline temp, Simplify nested loop) on energy consumption. A total of 25 different source codes of applications programmed in the C\# and Java languages are selected for the study, and combinations obtained from refactoring techniques are applied to these source codes. The results show that the combinations significantly improve the software’s energy efficiency.
+\end{itemize}
+
+We are providing a comparative analysis between the mentioned tactics. This is not an exhaustive study but it provides a general overview of advantages and limitations of these techniques:
+\vspace{1em}
+{\footnotesize
+\begin{longtable}{|p{1.6cm}|p{3.5cm}|p{3cm}|p{3.5cm}|p{3.5cm}|}
+  \hline
+  \textbf{Tactic} & \textbf{Purpose} & \textbf{Advantages} & \textbf{Limitations} & \textbf{Example of reference} \\
+  \hline
+  Architectural Tactics &
+ provide a basis for reasoning about design decisions for energy efficiency in software architectures. The paper derives a set of reusable architectural tactics for energy efficiency from the research literature, via a taxonomic literature review. Researchers used an open-search and snowballing methodology to obtain primary studies, and then used thematic coding to identify commonalities among the design strategies described. The result of this process is a taxonomy of 10 architectural tactics for energy efficiency. These tactics provide a rational basis for architectural design and analysis for energy efficiency. & 
+ Provide a rational basis for architectural design and analysis for energy efficiency. By using mentioned tactics, software architects can make informed decisions about how to design their systems to be more energy-efficient. This can help reduce the environmental impact of software, as well as improve the battery life of mobile and IoT devices. Additionally, by using an architectural approach to energy efficiency, software engineers can better manage complex system-wide properties, which can be difficult to address through coding alone. & 
+ Need for a comprehensive framework that can enumerate relevant contextual factors and assist in reasoning about the consequences of design decisions on energy efficiency and other quality attributes. The absence of such a framework makes it difficult for architects and developers to make informed decisions. &
+ ~\cite{DBLP:conf/hicss/ParadisKT21} \\
+ \hline
+ Design Patterns & 
+ Explore the ways to improve the energy efficiency of software design patterns while retaining their essential benefits, such as improved code readability and maintainability. In this study researchers propose compiler transformations for two design patterns, Observer and Decorator, and perform an initial evaluation of their energy efficiency. Their vision is to automatically detect and transform design patterns during compilation for better energy efficiency without impacting existing coding practices & 
+ Several advantages of the proposed approach to improving the energy efficiency of software design patterns include: Developer coding practices remain unaffected. Benefits of using design patterns are retained. Energy consumption of software is reduced. & 
+ The study focuses on only two patterns (Decorator and Observer), limiting generalization.The empirical evaluation is based on a small set of programs, potentially limiting applicability.Transformations for energy optimization are applied manually, needing automation for scalability.& 
+ ~\cite{DBLP:conf/icse/NoureddineR15}\\
+ \hline
+ Code Refactoring & 
+ Restructure existing code without changing its external behavior to enhance reusability and maintainability of software components through improving nonfunctional attributes of the software.& 
+ Improve code readability, reduce complexity, and make the code more efficient, maintainable, and easier to understand.  Some refactoring techniques aim to reduce the energy consumption of the software, which can improve its energy efficiency.Refactoring transforms a mess into clean and simple code. & 
+ Code refactoring for energy efficiency can be a complex and time-consuming process that requires a deep understanding of the software and its energy consumption characteristics. & 
+ ~\cite{csanlialp2022energy}
+ and
+ ~\cite{DBLP:journals/cluster/KimHYL18}\\
+ \hline
+\caption{Comparison between the mentioned tactics}
+\label{tab:Comparison between all mentioned tactics}
+\end{longtable}
+}
+
+Unlike other tactics, code refactoring suits various types of software. By applying code refactoring, we can improve code simplicity, readability, reduce complexity, and enhance code efficiency, leading to improved energy efficiency. This answers our \textbf{RQ1}. Further exploration of code refactoring for energy-efficient software will be discussed in chapter \ref{ch:literature_review}.
+
+
+
+
+\vspace{.5em}
+Monitoring energy use is a crucial prerequisite before embarking on our main experiments, as accurately measuring energy consumption is paramount. Without understanding the energy usage of programs, progress to our main experiments becomes uncertain. It is essential to determine which tool will be the most efficient for measuring energy consumption. To achieve this, we explore various tools, each with its advantages and drawbacks. In this subsequent section, we will discuss the advantages and drawbacks of various tools.
+
+\section{Energy Consumption Profiling Tools}
+
+Measuring energy consumption is challenging because there's no straightforward way for directly measuring energy usage. To overcome this, we rely on external tools to measure energy. 
+Energy consumption measuring tools can be categorized mainly in two categories:
+\begin{itemize}
+    \item \textbf{Hardware Tools}: Wattmetter ~\cite{bekaroo2014power}
+    \item \textbf{Software Tools}:
+    \begin{itemize}
+    \item {Power Joular ~\cite{DBLP:conf/intenv/Noureddine22}}
+    \item {JoularJX ~\cite{DBLP:conf/intenv/Noureddine22}}
+    \item {Likwid Powermeter\footnote{\url{https://github.com/RRZE-HPC/likwid/wiki/Likwid-Powermeter}}~\cite{DBLP:journals/corr/abs-1004-4431}}
+    \end{itemize}
+\end{itemize}
+
+As our aim is to determine which tool will be the most efficient for measuring the energy consumption of a software program, we will mainly focus on software tools. Now, we will provide a description of all the aforementioned software tools.\par \vspace{1em}
+
+\textbf{PowerJoular}: PowerJoular is a command line software to monitor, in real time, the power consumption of software and hardware components.\\
+
+\textbf{Advantages}:
+\begin{itemize}
+    \renewcommand\labelitemi{}
+    \item It can measure the CPU, GPU and memory consumption. It writes the power consumption in a CSV file.
+\end{itemize}
+
+\textbf{Disadvantages}:
+\begin{itemize}
+    \renewcommand\labelitemi{}
+    \item Power Joular can only measure the power consumption of Intel RAPL (CPU) and NVIDIA SMI (GPU).
+\end{itemize}
+
+\textbf{JoularJX}: JoularJX is a Java-based agent for software power monitoring at the source code level\\
+
+\textbf{Advantages}:
+\begin{itemize}
+    \renewcommand\labelitemi{}
+    \item JoularJX works as a java agent. It hooks to the JVM (Java Virtual Machine) to monitor power consumption. It can get power and energy consumption at the method level.
+\end{itemize}
+
+\textbf{Disadvantages}:
+\begin{itemize}
+    \renewcommand\labelitemi{}
+    \item JoularJX can only measure the energy and power consumption for the Java source codes and applications.
+\end{itemize}
+
+\textbf{Likwid Powermeter}:Likwid Powermeter is a
+tool for accessing RAPL(Running Average Power Limit) counters on Intel processors, which allows you to query the energy consumed within a package for a given time period and computes the resulting power consumption.\\
+
+\textbf{Advantages}:
+\begin{itemize}
+    \renewcommand\labelitemi{}
+    \item It can monitor the energy consumption by the core of the CPU of the machine, provide the result by measuring the energy consumption by each processor.
+\end{itemize}
+
+\textbf{Disadvantages}:
+\begin{itemize}
+    \renewcommand\labelitemi{}
+    \item It can not able to monitor the energy consumption methodwise. Provide processorwise results (at the level of CPU cores), sometimes results can vary as other processes may run on the same core with the test process.
+\end{itemize}
+
+\vspace{.5em}
+From the mentioned energy consumption monitoring software tools, we chose JoularJX to run our experiments and measure energy and power consumption. The key reason for selecting JoularJX is that it allows real-time monitoring at the source code level. It functions as a Java agent, providing accurate power and energy readings on both GNU/Linux and Windows platforms. This makes it a suitable tool for monitoring the energy consumption of Java-based software or Java-based programs. As mentioned in Chapter \ref{ch:Introduction}, Section \ref{sec:problem_statement}, our primary focus is on Java programs or Java-based software for making energy-efficient, which makes JoularJX the appropriate choice for our requirements.
+
+
+\section{Conclusion}
+ In our quest to enhance software energy efficiency, we explored various tactics, such as Architectural Tactics, Design Patterns, and Code Refactoring. Through comparative analysis, we discerned the benefits and limitations of each tactic, with code refactoring proving to be versatile across diverse software types.This provided the answer to our first research question \textbf{RQ1}. Monitoring energy consumption is pivotal to this research. Among the software tools considered for profiling energy consumption, JoularJX emerged as the most appropriate for our Java-based software focus. 

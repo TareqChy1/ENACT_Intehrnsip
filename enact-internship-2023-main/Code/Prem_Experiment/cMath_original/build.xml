@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- WARNING: Eclipse auto-generated file.
+              Any modifications will be overwritten.
+              To include a user specific buildfile here, simply create one in the same
+              directory with the processing instruction <?eclipse.ant.import?>
+              as the first entry and export the buildfile again. -->
+<project basedir="." default="build" name="cMath_original">
+    <property environment="env"/>
+    <property name="ECLIPSE_HOME" value="../../../../../../usr/lib/eclipse"/>
+    <property name="junit.output.dir" value="junit"/>
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.6"/>
+    <property name="source" value="1.6"/>
+    <path id="JUnit 4.libraryclasspath">
+        <pathelement location="../../../../../../usr/share/eclipse/dropins/jdt/plugins/org.junit_4.8.2.dist/junit.jar"/>
+        <pathelement location="../../../../../../usr/share/eclipse/dropins/jdt/plugins/org.hamcrest.core_1.1.0.jar"/>
+    </path>
+    <path id="cMath_original.classpath">
+        <pathelement location="bin"/>
+        <path refid="JUnit 4.libraryclasspath"/>
+    </path>
+    <target name="init">
+        <mkdir dir="bin"/>
+        <copy includeemptydirs="false" todir="bin">
+            <fileset dir="src/main/java">
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy includeemptydirs="false" todir="bin">
+            <fileset dir="src/main/resources">
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy includeemptydirs="false" todir="bin">
+            <fileset dir="src/test/resources">
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy includeemptydirs="false" todir="bin">
+            <fileset dir="src/test/java">
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="clean">
+        <delete dir="bin"/>
+    </target>
+    <target depends="clean" name="cleanall"/>
+    <target depends="build-subprojects,build-project" name="build"/>
+    <target name="build-subprojects"/>
+    <target depends="init" name="build-project">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" includeantruntime="false" source="${source}" target="${target}">
+            <src path="src/main/java"/>
+            <src path="src/main/resources"/>
+            <src path="src/test/resources"/>
+            <src path="src/test/java"/>
+            <classpath refid="cMath_original.classpath"/>
+        </javac>
+    </target>
+    <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
+    <target description="copy Eclipse compiler jars to ant lib directory" name="init-eclipse-compiler">
+        <copy todir="${ant.library.dir}">
+            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
+        </copy>
+        <unzip dest="${ant.library.dir}">
+            <patternset includes="jdtCompilerAdapter.jar"/>
+            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
+        </unzip>
+    </target>
+    <target description="compile project with Eclipse compiler" name="build-eclipse-compiler">
+        <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
+        <antcall target="build"/>
+    </target>
+    <target name="cMath_original">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="no" printsummary="no">
+            <formatter type="xml"/>
+            <test name="org.apache.commons.math3.RetryRunnerTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.analysis.FunctionUtilsTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.analysis.function.GaussianTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.analysis.function.HarmonicOscillatorTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.analysis.function.LogisticTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.analysis.function.LogitTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.analysis.function.SigmoidTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.analysis.function.SincTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.analysis.function.SqrtTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.analysis.function.StepFunctionTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.analysis.integration.LegendreGaussIntegratorTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.analysis.integration.RombergIntegratorTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.analysis.integration.SimpsonIntegratorTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.analysis.integration.TrapezoidIntegratorTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.analysis.interpolation.BicubicSplineInterpolatingFunctionTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.analysis.interpolation.BicubicSplineInterpolatorTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.analysis.interpolation.DividedDifferenceInterpolatorTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.analysis.interpolation.LinearInterpolatorTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.analysis.interpolation.LoessInterpolatorTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.analysis.interpolation.MicrosphereInterpolatorTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.analysis.interpolation.NevilleInterpolatorTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.analysis.interpolation.SmoothingPolynomialBicubicSplineInterpolatorTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.analysis.interpolation.SplineInterpolatorTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.analysis.interpolation.TricubicSplineInterpolatingFunctionTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.analysis.interpolation.TricubicSplineInterpolatorTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.analysis.interpolation.UnivariatePeriodicInterpolatorTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.analysis.polynomials.PolynomialFunctionLagrangeFormTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.analysis.polynomials.PolynomialFunctionNewtonFormTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.analysis.polynomials.PolynomialFunctionTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.analysis.polynomials.PolynomialSplineFunctionTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.analysis.polynomials.PolynomialsUtilsTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.analysis.solvers.BisectionSolverTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.analysis.solvers.BracketingNthOrderBrentSolverTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.analysis.solvers.BrentSolverTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.analysis.solvers.IllinoisSolverTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.analysis.solvers.LaguerreSolverTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.analysis.solvers.MullerSolver2Test" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.analysis.solvers.MullerSolverTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.analysis.solvers.NewtonSolverTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.analysis.solvers.PegasusSolverTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.analysis.solvers.RegulaFalsiSolverTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.analysis.solvers.RiddersSolverTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.analysis.solvers.SecantSolverTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.analysis.solvers.UnivariateSolverUtilsTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.complex.ComplexFieldTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.complex.ComplexFormatTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.complex.ComplexTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.complex.ComplexUtilsTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.complex.FrenchComplexFormatTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.complex.RootsOfUnityTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.dfp.BracketingNthOrderBrentSolverDFPTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.dfp.DfpDecTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.dfp.DfpMathTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.dfp.DfpTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.distribution.AbstractRealDistributionTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.distribution.AbtractIntegerDistributionTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.distribution.BetaDistributionTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.distribution.BinomialDistributionTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.distribution.CauchyDistributionTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.distribution.ChiSquaredDistributionTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.distribution.ExponentialDistributionTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.distribution.FDistributionTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.distribution.GammaDistributionTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.distribution.HypergeometricDistributionTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.distribution.KolmogorovSmirnovDistributionTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.distribution.LogNormalDistributionTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.distribution.NormalDistributionTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.distribution.PascalDistributionTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.distribution.PoissonDistributionTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.distribution.TDistributionTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.distribution.TriangularDistributionTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.distribution.UniformIntegerDistributionTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.distribution.UniformRealDistributionTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.distribution.WeibullDistributionTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.distribution.ZipfDistributionTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.exception.DimensionMismatchExceptionTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.exception.MaxCountExceededExceptionTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.exception.NonMonotonicSequenceExceptionTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.exception.NotPositiveExceptionTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.exception.NotStrictlyPositiveExceptionTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.exception.NumberIsTooLargeExceptionTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.exception.NumberIsTooSmallExceptionTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.exception.OutOfRangeExceptionTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.exception.TooManyEvaluationsExceptionTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.exception.util.ArgUtilsTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.exception.util.ExceptionContextTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.exception.util.LocalizedFormatsTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.filter.KalmanFilterTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.fraction.BigFractionFieldTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.fraction.BigFractionFormatTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.fraction.BigFractionTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.fraction.FractionFieldTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.fraction.FractionFormatTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.fraction.FractionTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.genetics.BinaryChromosomeTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.genetics.BinaryMutationTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.genetics.ChromosomeTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.genetics.ElitisticListPopulationTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.genetics.FitnessCachingTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.genetics.FixedGenerationCountTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.genetics.GeneticAlgorithmBinaryTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.genetics.GeneticAlgorithmPermutationsTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.genetics.ListPopulationTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.genetics.OnePointCrossoverTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.genetics.RandomKeyMutationTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.genetics.RandomKeyTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.genetics.TournamentSelectionTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.geometry.euclidean.oned.IntervalsSetTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.geometry.euclidean.threed.FrenchVector3DFormatTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.geometry.euclidean.threed.LineTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.geometry.euclidean.threed.PlaneTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.geometry.euclidean.threed.PolyhedronsSetTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.geometry.euclidean.threed.RotationOrderTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.geometry.euclidean.threed.RotationTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.geometry.euclidean.threed.SubLineTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.geometry.euclidean.threed.Vector3DFormatTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.geometry.euclidean.threed.Vector3DTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.geometry.euclidean.twod.LineTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.geometry.euclidean.twod.PolygonsSetTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.geometry.euclidean.twod.SubLineTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.geometry.partitioning.utilities.AVLTreeTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.linear.Array2DRowRealMatrixTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.linear.ArrayFieldVectorTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.linear.ArrayRealVectorTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.linear.BiDiagonalTransformerTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.linear.BlockFieldMatrixTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.linear.BlockRealMatrixTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.linear.CholeskyDecompositionTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.linear.CholeskySolverTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.linear.ConjugateGradientTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.linear.EigenDecompositionTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.linear.EigenSolverTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.linear.FieldLUDecompositionTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.linear.FieldLUSolverTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.linear.FieldMatrixImplTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.linear.FrenchRealVectorFormatTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.linear.LUDecompositionTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.linear.LUSolverTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.linear.MatrixDimensionMismatchExceptionTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.linear.MatrixUtilsTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.linear.OpenMapRealMatrixTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.linear.QRDecompositionTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.linear.QRSolverTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.linear.RealVectorFormatTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.linear.RealVectorTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.linear.SingularValueDecompositionTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.linear.SingularValueSolverTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.linear.SparseFieldMatrixTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.linear.SparseFieldVectorTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.linear.SparseRealMatrixTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.linear.SparseRealVectorTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.linear.SymmLqTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.linear.TriDiagonalTransformerTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.linear.UnmodifiableArrayRealVectorTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.linear.UnmodifiableOpenMapRealVectorTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.ode.ContinuousOutputModelTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.ode.FirstOrderConverterTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.ode.JacobianMatricesTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.ode.events.EventStateTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.ode.events.OverlappingEventsTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.ode.events.ReappearingEventTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.ode.nonstiff.AdamsBashforthIntegratorTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.ode.nonstiff.AdamsMoultonIntegratorTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.ode.nonstiff.ClassicalRungeKuttaIntegratorTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.ode.nonstiff.ClassicalRungeKuttaStepInterpolatorTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.ode.nonstiff.DormandPrince54IntegratorTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.ode.nonstiff.DormandPrince54StepInterpolatorTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.ode.nonstiff.DormandPrince853IntegratorTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.ode.nonstiff.DormandPrince853StepInterpolatorTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.ode.nonstiff.EulerIntegratorTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.ode.nonstiff.EulerStepInterpolatorTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.ode.nonstiff.GillIntegratorTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.ode.nonstiff.GillStepInterpolatorTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.ode.nonstiff.GraggBulirschStoerIntegratorTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.ode.nonstiff.GraggBulirschStoerStepInterpolatorTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.ode.nonstiff.HighamHall54IntegratorTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.ode.nonstiff.HighamHall54StepInterpolatorTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.ode.nonstiff.MidpointIntegratorTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.ode.nonstiff.MidpointStepInterpolatorTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.ode.nonstiff.ThreeEighthesIntegratorTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.ode.nonstiff.ThreeEighthesStepInterpolatorTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.ode.sampling.DummyStepInterpolatorTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.ode.sampling.NordsieckStepInterpolatorTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.ode.sampling.StepNormalizerOutputOverlapTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.ode.sampling.StepNormalizerOutputTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.ode.sampling.StepNormalizerTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.optimization.DifferentiableMultivariateMultiStartOptimizerTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.optimization.DifferentiableMultivariateVectorMultiStartOptimizerTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.optimization.MultivariateMultiStartOptimizerTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.optimization.direct.CMAESOptimizerTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.optimization.direct.MultivariateFunctionMappingAdapterTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.optimization.direct.MultivariateFunctionPenaltyAdapterTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.optimization.direct.PowellOptimizerTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.optimization.direct.SimplexOptimizerMultiDirectionalTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.optimization.direct.SimplexOptimizerNelderMeadTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.optimization.fitting.CurveFitterTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.optimization.fitting.GaussianFitterTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.optimization.fitting.HarmonicFitterTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.optimization.fitting.PolynomialFitterTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.optimization.general.GaussNewtonOptimizerTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.optimization.general.LevenbergMarquardtOptimizerTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.optimization.general.MinpackTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.optimization.general.NonLinearConjugateGradientOptimizerTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.optimization.linear.SimplexSolverTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.optimization.linear.SimplexTableauTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.optimization.univariate.BracketFinderTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.optimization.univariate.BrentOptimizerTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.optimization.univariate.UnivariateMultiStartOptimizerTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.random.AbstractRandomGeneratorTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.random.BitsStreamGeneratorTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.random.CorrelatedRandomVectorGeneratorTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.random.EmpiricalDistributionTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.random.GaussianRandomGeneratorTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.random.ISAAcTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.random.MersenneTwisterTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.random.RandomAdaptorTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.random.RandomDataTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.random.StableRandomGeneratorTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.random.UncorrelatedRandomVectorGeneratorTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.random.UniformRandomGeneratorTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.random.ValueServerTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.random.Well1024aTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.random.Well19937aTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.random.Well19937cTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.random.Well44497aTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.random.Well44497bTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.random.Well512aTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.special.BetaTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.special.ErfTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.special.GammaTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.stat.CertifiedDataTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.stat.FrequencyTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.stat.StatUtilsTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.stat.clustering.EuclideanIntegerPointTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.stat.clustering.KMeansPlusPlusClustererTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.stat.correlation.CovarianceTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.stat.correlation.PearsonsCorrelationTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.stat.correlation.SpearmansRankCorrelationTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.stat.correlation.StorelessCovarianceTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.stat.data.LewTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.stat.data.LotteryTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.stat.descriptive.AbstractUnivariateStatisticTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.stat.descriptive.AggregateSummaryStatisticsTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.stat.descriptive.DescriptiveStatisticsTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.stat.descriptive.ListUnivariateImplTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.stat.descriptive.MixedListUnivariateImplTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.stat.descriptive.MultivariateSummaryStatisticsTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.stat.descriptive.StatisticalSummaryValuesTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.stat.descriptive.SummaryStatisticsTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.stat.descriptive.SynchronizedDescriptiveStatisticsTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.stat.descriptive.SynchronizedMultivariateSummaryStatisticsTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.stat.descriptive.SynchronizedSummaryStatisticsTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.stat.descriptive.moment.FirstMomentTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.stat.descriptive.moment.FourthMomentTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.stat.descriptive.moment.GeometricMeanTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.stat.descriptive.moment.InteractionTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.stat.descriptive.moment.KurtosisTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.stat.descriptive.moment.MeanTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.stat.descriptive.moment.SecondMomentTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.stat.descriptive.moment.SemiVarianceTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.stat.descriptive.moment.SkewnessTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.stat.descriptive.moment.StandardDeviationTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.stat.descriptive.moment.ThirdMomentTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.stat.descriptive.moment.VarianceTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.stat.descriptive.moment.VectorialCovarianceTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.stat.descriptive.moment.VectorialMeanTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.stat.descriptive.rank.MaxTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.stat.descriptive.rank.MedianTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.stat.descriptive.rank.MinTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.stat.descriptive.rank.PercentileTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.stat.descriptive.summary.ProductTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.stat.descriptive.summary.SumLogTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.stat.descriptive.summary.SumSqTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.stat.descriptive.summary.SumTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.stat.inference.ChiSquareTestTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.stat.inference.MannWhitneyUTestTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.stat.inference.OneWayAnovaTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.stat.inference.TTestTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.stat.inference.TestUtilsTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.stat.inference.WilcoxonSignedRankTestTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.stat.ranking.NaturalRankingTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.stat.regression.GLSMultipleLinearRegressionTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.stat.regression.MillerUpdatingRegressionTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.stat.regression.OLSMultipleLinearRegressionTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.stat.regression.SimpleRegressionTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.transform.FastCosineTransformerTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.transform.FastFourierTransformerTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.transform.FastHadamardTransformerTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.transform.FastSineTransformerTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.util.ArithmeticUtilsTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.util.BigRealFieldTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.util.BigRealTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.util.ContinuedFractionTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.util.DefaultTransformerTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.util.FastMathStrictComparisonTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.util.IncrementorTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.util.MathArraysTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.util.MathUtilsTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.util.MultidimensionalCounterTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.util.OpenIntToDoubleHashMapTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.util.OpenIntToFieldTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.util.PairTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.util.PrecisionTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.util.ResizableDoubleArrayTest" todir="${junit.output.dir}"/>
+            <test name="org.apache.commons.math3.util.TransformerMapTest" todir="${junit.output.dir}"/>
+            <classpath refid="cMath_original.classpath"/>
+        </junit>
+    </target>
+    <target name="junitreport">
+        <junitreport todir="${junit.output.dir}">
+            <fileset dir="${junit.output.dir}">
+                <include name="TEST-*.xml"/>
+            </fileset>
+            <report format="frames" todir="${junit.output.dir}"/>
+        </junitreport>
+    </target>
+</project>
