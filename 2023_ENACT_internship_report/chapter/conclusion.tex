@@ -1,0 +1,42 @@
+\section{Conclusion}
+In our internship, the main objective was to investigate tactics for enhancing software energy efficiency. From this objective, we formulated two research questions: 
+\vspace{-6pt}
+\begin{itemize}
+    \item \textbf{RQ1:} Which tactics improve energy efficiency?
+    \vspace{-8pt}
+    \item \textbf{RQ2:} How can we automate the integration of these tactics to minimize energy consumption?
+\end{itemize}
+\vspace{-5pt}
+In response to Research Question 1 (\textbf{RQ1}), we delved into various tactics such as Architectural Tactics, Design Patterns, and Code Refactoring. Through a comparative analysis, we discerned the benefits and drawbacks of each tactic. Code refactoring emerged as particularly versatile across various software types. We not only identified these tactics but also detailed insights into their implementation, emphasizing practical methods to embed them in software. Monitoring energy consumption was essential for our research. Among the considered software tools for energy consumption profiling, JoularJX was the most fitting for our focus on Java-based software. This preference stemmed from JoularJX's ability to offer real-time monitoring at the source code level, functioning as a Java agent. %It delivered precise power and energy measurements for both GNU/Linux and Windows platforms, aligning perfectly with our emphasis on Java-based software. 
+To automate the monitoring process using the JoularJX tool, we developed two bash scripts tailored to its updated 2.0 version. %Within these scripts were several Python files, like \texttt{jx\_gatherData.py}, \texttt{jx\_plot.py}, \texttt{jx\_process\_level\_methods.py}, \texttt{shapiro\_wilk\_test\_energy.py}. Our scripts would create directories for result organization, execute the Java program or project for 30 iterations with the JoularJX agent attached, and collect energy and power data. Subsequent processing and analysis were done using the Python scripts. The \texttt{jx\_plot.py} generated visual representations from the data, while the Shapiro-Wilk tests ascertained normality in the energy and power datasets.
+Another intern, \texttt{Lyne Gabriella NENGUEKO NOUMBISSIE}, utilized these scripts in her research, \texttt{Evaluation of energy-efficiency requirements through a systematic test case
+generation.}
+
+\vspace{.5em}
+In \textbf{RQ2}, we focused on the automation of integrating tactics to reduce energy consumption. This approach utilized genetic improvement, and as part of our research, we introduced a tool called GIN. Under research question \textbf{RQ2}, three sub-questions were identified:
+\vspace{-5pt}
+\begin{itemize}
+    \item \textbf{RQ2.1}: Does the improvement of execution time and memory consumption reduce energy consumption?
+    \vspace{-8pt}
+    \item \textbf{RQ2.2}: Could code refactoring integrate into GI? Which elements need to be extended in the Gin tool?
+    \vspace{-8pt}
+    \item \textbf{RQ2.3}: In which extent code refactoring genetically improve the software to reduce energy consumption?
+\end{itemize}
+\vspace{-5pt}
+Analysis of the results from Table~\ref{tab:Result} reveals that the Gin toolbox effectively optimized the \textit{Triangle}, \textit{GCD}, and \textit{Rectangle} programs across three tactics (Section \ref{sec:tactics}). Across these programs, the optimized versions consistently used less energy than their originals. For the \textit{Triangle} program, the most energy savings (28.11\%) was achieved with \textbf{Tactic 3}. For the \textit{GCD} program, energy consumption was most reduced (51.53\%) also by \textbf{Tactic 3}. However, for the \textit{Rectangle} program, the most reduction (20.78\%) was observed with \textbf{Tactic 1}. To definitively determine which tactic yields the highest energy consumption reduction, further experiments are needed. However, based on our current results, we can conclude that the optimized versions program using the "gin" tool, across all three tactics, consistently consume less energy than their original version program. This evidence supports a positive answer to research question \textbf{RQ2.1}: improvements in the execution time and memory consumption of programs do indeed lead to reduced energy consumption.
+
+\vspace{.5em}
+A comprehensive literature review was conducted, and it was observed that while various code refactoring techniques could improve software performance, their impact on energy efficiency varied based on the software's specific context. Notably, techniques like 'Convert Local Variable to Field', 'Introduce Parameter Object', and others showed promise in reducing energy consumption. The Genetic Improvement (GIN) tool, which leveraged Genetic Programming for software enhancement, presented an ideal platform for integrating these techniques. The \texttt{StatementEdit} class within GIN appeared to be the most fitting for this integration, paving the way for potentially higher software quality and energy efficiency. This study effectively addressed the research question, highlighting the potential synergies between refactoring techniques and the GIN tool. Based on this analysis, research question \textbf{RQ2.2} was answered: Code refactoring techniques could indeed be integrated into the Genetic Improvement tool, Gin. For this integration, the \texttt{StatementEdit} class in Gin needed to be extended.
+
+\vspace{.5em}
+Due to time constraints, we were unable to address our research question \textbf{RQ2.3}. However, we provide detailed information in the following section, Section \ref{sec:nextSteps}, on how the corresponding experiment can be conducted.
+
+\vspace{.5em}
+It is very important to make software developers aware of the negative effects of energy consumption. This internship helped me to learn a lot of new things about energy efficiency in the software domain. I am sure that this knowledge will help me a lot in the future. This work made me aware of how important is to reduce energy consumption at the software level and how much energy we can save by using energy-friendly programs or software.
+
+
+
+
+
+
+

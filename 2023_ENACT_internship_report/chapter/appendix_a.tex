@@ -1,0 +1,921 @@
+%\section{Energy consumption monitoring of mandelbrot program using JoularJX}
+\section{The \texttt{jx\_script.sh} script}\label{sec:mainscript}
+
+\begin{lstlisting}
+#!/bin/bash
+
+if [ "$#" -ne 1 ];then
+    echo "Un unique argument est attendu : le nom du programme (sans l'extension)" >&2
+    exit 1
+fi
+
+programme=$1
+jar="/opt/joularjx/joularjx-2.0.jar"
+mkdir "jx_results"
+mkdir "jx_results/energy"
+mkdir "jx_results/energy/methods"
+mkdir "jx_results/energy/calltrees"
+mkdir "jx_results/energy_filtered"
+mkdir "jx_results/energy_filtered/methods"
+mkdir "jx_results/energy_filtered/calltrees"
+mkdir "jx_results/power"
+mkdir "jx_results/power/methods"
+mkdir "jx_results/power/calltrees"
+mkdir "jx_results/power_filtered"
+mkdir "jx_results/power_filtered/methods"
+mkdir "jx_results/power_filtered/calltrees"
+
+mkdir "mandelbrot_bitmap"
+
+for param in 15000 20000 30000 40000 # Nombre d'élements dans un tableau
+do    
+    #for i in 1 2  # Nombre d'itérations
+    for i in {1..30}  # Nombre d'itérations
+    do 
+	echo "running java  with parameter $param, iteration $i"
+	# Nous avons besoin du pid du processus java pour pouvoir correctement gérer les fichiers créés par JoularJX
+	if [ $i == 1 ];then
+	    # On sauvegarde les pmb pour la première itération
+	    java -javaagent:$jar $programme $param > "mandelbrot_bitmap/java_temp.pmb" &
+	else
+	    java -javaagent:$jar $programme $param > /dev/null 2>/dev/null &
+	fi
+	java_pid=$!
+	wait $!
+
+	# Sauvegarde du pmb
+	if [ -e "mandelbrot_bitmap/java_temp.pmb" ];then
+	    tail -n+6 "mandelbrot_bitmap/java_temp.pmb" > "mandelbrot_bitmap/java_$param.pmb"
+	    rm -f "mandelbrot_bitmap/java_temp.pmb"
+	fi
+	
+	fichier_energy_methods="joularJX-"$java_pid"-all-methods-energy.csv"
+	fichier_energy_calltrees="joularJX-"$java_pid"-all-call-trees-energy.csv"
+	fichier_energy_filtered_methods="joularJX-"$java_pid"-filtered-methods-energy.csv"
+	fichier_energy_filtered_calltrees="joularJX-"$java_pid"-filtered-call-trees-energy.csv"
+	fichier_power_methods="joularJX-"$java_pid"-all-methods-power.csv"
+	fichier_power_calltrees="joularJX-"$java_pid"-all-call-trees-power.csv"
+	fichier_power_filtered_methods="joularJX-"$java_pid"-filtered-methods-power.csv"
+	fichier_power_filtered_calltrees="joularJX-"$java_pid"-filtered-call-trees-power.csv"
+
+	# Tri des fichiers vides
+	find . -name "$fichier_energy_methods" -type f -print0 | while IFS= read -r -d '' f
+	do
+	    if [ -s "$f" ]; then
+		# Non-empty file
+		mv "$f" "jx_results/energy/methods"
+		#echo "Moved $f to jx_results/energy/methods"
+	    else
+		# Empty file
+		#echo "Deleting empty file: $f"
+		rm -f "$f"
+	    fi
+	done
+	find . -name "$fichier_energy_calltrees" -type f -print0 | while IFS= read -r -d '' f
+	do
+	    if [ -s "$f" ]; then
+		# Non-empty file
+		mv "$f" "jx_results/energy/calltrees"
+		#echo "Moved $f to jx_results/energy/calltrees"
+	    else
+		# Empty file
+		#echo "Deleting empty file: $f"
+		rm -f "$f"
+	    fi
+	done
+	find . -name "$fichier_energy_filtered_methods" -type f -print0 | while IFS= read -r -d '' f
+	do
+	    if [ -s "$f" ]; then
+		# Non-empty file
+		mv "$f" "jx_results/energy_filtered/methods"
+		#echo "Moved $f to jx_results/energy_filtered/methods"
+	    else
+		# Empty file
+		#echo "Deleting empty file: $f"
+		rm -f "$f"
+	    fi
+	done
+	find . -name "$fichier_energy_filtered_calltrees" -type f -print0 | while IFS= read -r -d '' f
+	do
+	    if [ -s "$f" ]; then
+		# Non-empty file
+		mv "$f" "jx_results/energy_filtered/calltrees"
+		#echo "Moved $f to jx_results/energy_filtered/calltrees"
+	    else
+		# Empty file
+		#echo "Deleting empty file: $f"
+		rm -f "$f"
+	    fi
+	done
+	find . -name "$fichier_power_methods" -type f -print0 | while IFS= read -r -d '' f
+	do
+	    if [ -s "$f" ]; then
+		# Non-empty file
+		mv "$f" "jx_results/power/methods"
+		#echo "Moved $f to jx_results/power/methods"
+	    else
+		# Empty file
+		#echo "Deleting empty file: $f"
+		rm -f "$f"
+	    fi
+	done
+	find . -name "$fichier_power_calltrees" -type f -print0 | while IFS= read -r -d '' f
+	do
+	    if [ -s "$f" ]; then
+		# Non-empty file
+		mv "$f" "jx_results/power/calltrees"
+		#echo "Moved $f to jx_results/power/calltrees"
+	    else
+		# Empty file
+		#echo "Deleting empty file: $f"
+		rm -f "$f"
+	    fi
+	done
+	find . -name "$fichier_power_filtered_methods" -type f -print0 | while IFS= read -r -d '' f
+	do
+	    if [ -s "$f" ]; then
+		# Non-empty file
+		mv "$f" "jx_results/power_filtered/methods"
+		#echo "Moved $f to jx_results/power_filtered/methods"
+	    else
+		# Empty file
+		#echo "Deleting empty file: $f"
+		rm -f "$f"
+	    fi
+	done
+	
+	find . -name "$fichier_power_filtered_calltrees" -type f -print0 | while IFS= read -r -d '' f
+	do
+	    if [ -s "$f" ]; then
+		# Non-empty file
+		mv "$f" "jx_results/power_filtered/calltrees"
+		#echo "Moved $f to jx_results/power_filtered/calltrees"
+	    else
+		# Empty file
+		#echo "Deleting empty file: $f"
+		rm -f "$f"
+	    fi
+	done
+    done
+done
+
+# used to gather power and engery consumption data using JoularJX and save it t CSV file.
+python3 jx_gatherData.py "jx_results/"
+
+#used to analyze the power consumption data at the method level, i.e., it breaks down the data into individual methods and calculates the energy and power consumed by each method.
+python3 jx_process_level_methods.py "jx_results/"
+
+# used to generate graphs from the power and engery consumption data saved in the CSV file generated by jx_gatherData.py.
+python3 jx_plot.py  "jx_graphs"
+
+# for box plotting the total energy for all the process id
+python3 jx_plot_geom_boxplot.py
+
+#used to perform a Shapiro-Wilk test on the energy consumption data to check for normality.
+python3 shapiro_wilk_test_energy.py
+
+#used to perform a Shapiro-Wilk test on the power consumption data to check for normality.
+python3 shapiro_wilk_test_power.py
+\end{lstlisting}
+
+%In this experiment, we monitored the energy consumption of a single Java program, mandelbrot.java using JoularJX. We used JoularJX 2.0 version to obtain updated tree structure results in the output directory. To execute the Java program with JoularJX, we prepared a bash script named "jx\_script.sh", which includes several Python files: "jx\_gatherData.py," "jx\_plot.py," "jx\_process\_level\_methods.py," "shapiro\_wilk\_test\_energy.py," and "shapiro\_wilk\_test\_power.py.". Now, we will explain how the script works to collect the data of energy consumption of the program (mandelbrot.java).\par
+
+%The script began by checking if a single argument, which was expected to be the name of the program without the file extension, was provided. If not, an error message was displayed. Then, a series of directories were created to organize the results. These directories included "jx\_results" as the main folder, which contained subfolders for "energy", "energy\_filtered", "power", and "power\_filtered". Each of these subfolders further contained "methods" and "calltrees" directories.\par
+
+%Next, the script created a directory named "mandelbrot\_bitmap". The script then entered a loop where it ran the Java program with different parameters (15000, 20000, 30000, and 40000) for a certain number of iterations (30 in this case). The program was run with the JoularJX agent attached, which collected energy and power consumption data. For the first iteration, the program's output was saved as "mandelbrot\_bitmap/java\_temp.pmb".\par
+
+%After each execution, four types of files were created by JoularJX, representing energy and power data at different levels of granularity. These files had specific names based on the process ID of the Java program. The script then moved the non-empty files to their respective directories under "jx\_results". If a file was empty, it was deleted.\par
+
+%Once the iterations were completed, the script proceeded to execute Python scripts for further data processing and analysis. The script "jx\_gatherData.py" read energy and power data from CSV files in specific directories and created Pandas dataframes to store the data. The dataframes were then processed to extract relevant information (such as method names, parameters, iterations, and energy/power consumption), and this information was stored in lists. The lists were then used to create new dataframes with meaningful column names, which were then saved to CSV files. After that,  the "jx\_process\_level\_methods.py" script read data from a CSV file containing energy and power consumption values for different iterations of a process. It then calculated the total and average energy consumption, and total and average power consumption for each iteration, and wrote these results to a new CSV file. The code used the Python CSV module to read and write CSV files and stored the results in dictionaries. The "jx\_process\_level\_methods.py" script analyzed the power consumption data at the method level, calculating energy and power for each method. The "jx\_plot.py" script generated graphs based on the gathered data. Subsequently, the "jx\_plot\_geom\_boxplot.py" script created box plots to visualize the total energy consumption across all process IDs. 
+
+%Lastly, the script ran the "shapiro\_wilk\_test\_energy.py" and "shapiro\_wilk\_test\_power.py" scripts, which performed Shapiro\-Wilk tests to check for normality in the energy and power consumption data, respectively.\par
+
+%\subsubsection{Experimental Procedure:} To execute the experiment, perform the following steps:
+
+%\begin{enumerate}
+%\item \textbf{Clone the Repository:} Start by cloning the repository using the following command:
+
+%\begin{verbatim}
+%git clone https://gitlabev.imtbs-tsp.eu/sticamsud/enact-internship-2023.git
+%\end{verbatim}
+
+%\item \textbf{Navigate to the Project Directory:} Change the directory to the project folder:
+%\begin{verbatim}
+%cd enact-internship-2023/Code/Prem_Experiment
+%\end{verbatim}
+
+%\item \textbf{Install JoularJX:} Follow the instructions provided on the JoularJX website to install the JoularJX. Visit: \url{https://github.com/joular/joularjx}
+
+%\item \textbf{Compile the Java Program:} Compile the mandelbrot.java program by running the following command:
+%\begin{verbatim}
+%javac mandelbrot.java
+%\end{verbatim}
+
+%\item \textbf{Execute the Script:} Run the script by entering the following %command:
+%\begin{verbatim}
+%./jx_script.sh mandelbrot
+%\end{verbatim}
+
+%\end{enumerate}
+
+%\section{Energy consumption monitoring of cMath\_original project using JoularJX:}
+
+%In the second experiment, the energy consumption of a project called 'cMath\_original' was monitored using JoularJX. Similar to the previous experiment, JoularJX version 2.0 was used to obtain updated tree structure results in the output directory. To execute all test cases of the project together, a new test class named 'RunAllSuite.java' was created in the test directory. To execute the 'RunAllSuite.java' class with JoularJX, it was necessary to download the \href{http://www.java2s.com/Code/Jar/c/Downloadcpsuite126jar.htm}{cpsuite-1.2.6.jar.zip} file and unzip it. A script called 'jx\_script\_math.sh' in the 'cMath\_original' directory was used to execute the 'RunAllSuite.java' class, which captured power and energy measurements using the JoularJX and managed the resulting files. The script included several Python files: "jx\_gatherData.py," "jx\_plot.py," "jx\_process\_level\_methods.py," "shapiro\_wilk\_test\_energy.py," and "shapiro\_wilk\_test\_power.py." 
+
+%The script set up directories for storing output files. These directories included "jx\_results" as the main folder, which contained subfolders for "energy", "energy\_filtered", "power", and "power\_filtered". Each of these subfolders further contained "methods" and "calltrees" directories.
+
+%The script set the Java classpath and ran the 'RunAllSuite.java' program in a loop for 30 iterations. During the first iteration, the output was saved to a file named 'java\_temp.pmb,' and for subsequent iterations, the output was discarded. After each execution, four types of files were created by JoularJX, representing energy and power data at different levels of granularity. These files had specific names based on the process ID of the Java program. The script then moved the non-empty files to their respective directories under "jx\_results". If a file was empty, it was deleted.
+
+%Once the iterations were completed, the script proceeded to execute Python scripts for further data processing and analysis. The script "jx\_gatherData.py" read energy and power data from CSV files in specific directories and created Pandas data frames to store the data. The data frames were then processed to extract relevant information (such as method names, parameters, iterations, and energy/power consumption), and this information was stored in lists. The lists were then used to create new data frames with meaningful column names, which were then saved to CSV files. After that, the "jx\_process\_level\_methods.py" script read data from a CSV file containing energy and power consumption values for different iterations of a process. It then calculated the total and average energy consumption, and total and average power consumption for each process id, and wrote these results to a new CSV file. The code used the Python CSV module to read and write CSV files and stored the results in dictionaries. The "jx\_process\_level\_methods.py" script analyzed the power consumption data at the method level, calculating energy and power for each method. The "jx\_plot.py" script generated graphs based on the gathered data. Subsequently, the "jx\_plot\_geom\_boxplot.py" script created box plots to visualize the total energy consumption across all process IDs.
+
+%Lastly, the script ran the "shapiro\_wilk\_test\_energy.py" and "shapiro\_wilk\_test\_power.py" scripts, which performed Shapiro\-Wilk tests to check for normality in the energy and power consumption data, respectively.\par
+
+
+%\subsubsection{Experimental Procedure:} To execute the experiment, perform the following steps:
+
+%\begin{enumerate}
+%\item \textbf{Clone the Repository:} Start by cloning the repository using the following command:
+
+%\begin{verbatim}
+%git clone https://gitlabev.imtbs-tsp.eu/sticamsud/enact-internship-2023.git
+%\end{verbatim}
+
+%\item \textbf{Navigate to the Project Directory:} Change the directory to the project folder:
+%\begin{verbatim}
+%cd enact-internship-2023/Code/Prem_Experiment/cMath_original
+%\end{verbatim}
+
+%\item \textbf{Install JoularJX:} Follow the instructions provided on the JoularJX website to install the JoularJX. Visit: \url{https://github.com/joular/joularjx}
+
+%\item \textbf{Navigate to the RunAllSuite.java file:}
+%\begin{verbatim}
+%cd src/test/java
+%\end{verbatim}
+
+%\item \textbf{Compile the RunAllSuite.java file:} Compile the RunAllSuite.java program by running the following command:
+%\begin{verbatim}
+%javac -cp /home/tareq/cpsuite-1.2.6.jar:/usr/share/java/junit4.jar RunAllSuite.java
+%\end{verbatim}
+
+%\item \textbf{Move the compiled file(RunAllSuite.class) in the bin folder:} Move the compiled file
+%(RunAllSuite.class) in the bin folder by running the following command
+%\begin{verbatim}
+%cd ../../../../../
+%cd Prem_Experiment/cMath_original/bin
+%\end{verbatim}
+
+%\item \textbf{Execute the Script:} Run the script by entering the following command:
+%\begin{verbatim}
+%cd ../
+%./jx_script_math.sh 
+%\end{verbatim}
+
+%\end{enumerate}
+
+\section{The \texttt{RunAllSuite} java code}\label{sec:alltests}
+
+\begin{lstlisting}
+import org.junit.extensions.cpsuite.ClasspathSuite;
+import org.junit.extensions.cpsuite.ClasspathSuite.*;
+import org.junit.internal.TextListener;
+import org.junit.runner.RunWith;
+import org.junit.runner.JUnitCore;
+import static org.junit.extensions.cpsuite.SuiteType.*;
+
+@RunWith(ClasspathSuite.class)
+@SuiteTypes({ JUNIT38_TEST_CLASSES, TEST_CLASSES })
+public class RunAllSuite {
+        public static void main(String args[]) {
+        	JUnitCore junit = new JUnitCore();
+            junit.addListener(new TextListener(System.out));
+            junit.run(RunAllSuite.class);
+        }
+}
+\end{lstlisting}
+
+\section{The \texttt{LocalSearch} java code for Tactic 2: Minimize Memory Consumption}\label{sec:LocalSearch_Memory}
+
+\begin{lstlisting}
+package gin;
+
+import com.sampullara.cli.Args;
+import com.sampullara.cli.Argument;
+import gin.edit.Edit;
+import gin.edit.Edit.EditType;
+import gin.test.InternalTestRunner;
+import gin.test.UnitTestResult;
+import gin.test.UnitTestResultSet;
+import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.rng.simple.JDKRandomBridge;
+import org.apache.commons.rng.simple.RandomSource;
+import org.pmw.tinylog.Logger;
+
+import java.io.File;
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
+
+/**
+ * Simple local search. Takes a source filename and a method signature, optimizes it.
+ * Assumes the existence of accompanying Test Class.
+ * The class must be in the top level package if classPath not provided.
+ */
+public class LocalSearch implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = -92020344633720482L;
+
+    private static final int WARMUP_REPS = 10;
+
+    @Argument(alias = "f", description = "Required: Source filename", required = true)
+    protected File filename = null;
+
+    @Argument(alias = "m", description = "Required: Method signature including arguments." +
+            "For example, \"classifyTriangle(int,int,int)\"", required = true)
+    protected String methodSignature = "";
+
+    @Argument(alias = "s", description = "Seed")
+    protected Integer seed = 123;
+
+    @Argument(alias = "n", description = "Number of steps")
+    protected Integer numSteps = 100;
+
+    @Argument(alias = "d", description = "Top directory")
+    protected File packageDir;
+
+    @Argument(alias = "c", description = "Class name")
+    protected String className;
+
+    @Argument(alias = "cp", description = "Classpath")
+    protected String classPath;
+
+    @Argument(alias = "t", description = "Test class name")
+    protected String testClassName;
+
+    @Argument(alias = "et", description = "Edit type: this can be a member of the EditType enum (LINE,STATEMENT,MATCHED_STATEMENT,MODIFY_STATEMENT); the fully qualified name of a class that extends gin.edit.Edit, or a comma-separated list of both")
+    protected String editType = EditType.LINE.toString();
+
+    /**
+     * allowed edit types for sampling: parsed from editType
+     */
+    protected List<Class<? extends Edit>> editTypes;
+
+    @Argument(alias = "ff", description = "Fail fast. "
+            + "If set to true, the tests will stop at the first failure and the next patch will be executed. "
+            + "You probably don't want to set this to true for Automatic Program Repair.")
+    protected Boolean failFast = false;
+
+    protected SourceFile sourceFile;
+    protected Random rng;
+    InternalTestRunner testRunner;
+
+    // Constructor parses arguments
+    LocalSearch(String[] args) {
+        Args.parseOrExit(this, args);
+        editTypes = Edit.parseEditClassesFromString(editType);
+
+        this.sourceFile = SourceFile.makeSourceFileForEditTypes(editTypes, this.filename.toString(), Collections.singletonList(this.methodSignature));
+
+        this.rng = new JDKRandomBridge(RandomSource.MT, Long.valueOf(seed));
+        if (this.packageDir == null) {
+            this.packageDir = (this.filename.getParentFile() != null) ? this.filename.getParentFile().getAbsoluteFile() : new File(System.getProperty("user.dir"));
+        }
+        if (this.classPath == null) {
+            this.classPath = this.packageDir.getAbsolutePath();
+        }
+        if (this.className == null) {
+            this.className = FilenameUtils.removeExtension(this.filename.getName());
+        }
+        if (this.testClassName == null) {
+            this.testClassName = this.className + "Test";
+        }
+        this.testRunner = new InternalTestRunner(className, classPath, testClassName, failFast);
+    }
+
+    // Instantiate a class and call search
+    public static void main(String[] args) {
+        LocalSearch simpleLocalSearch = new LocalSearch(args);
+        simpleLocalSearch.search();
+    }
+
+    // Apply empty patch and return memory consumption
+    private long memoryOriginalCode() {
+        Patch emptyPatch = new Patch(this.sourceFile);
+        UnitTestResultSet resultSet = testRunner.runTests(emptyPatch, WARMUP_REPS);
+
+        if (!resultSet.allTestsSuccessful()) {
+            if (!resultSet.getCleanCompile()) {
+                Logger.error("Original code failed to compile");
+            } else {
+                Logger.error("Original code failed to pass unit tests");
+                for (UnitTestResult testResult : resultSet.getResults()) {
+                    Logger.error(testResult);
+                }
+            }
+            System.exit(0);
+        }
+
+        return resultSet.totalMemoryUsage() / WARMUP_REPS;
+    }
+
+    // Simple local search
+    private void search() {
+        Logger.info(String.format("Localsearch on file: %s method: %s", filename, methodSignature));
+
+        // Memory consumption of original code
+        long origMemory = memoryOriginalCode();
+        Logger.info("Original memory consumption: " + origMemory + " Mbytes");
+
+        // Start with empty patch
+        Patch bestPatch = new Patch(this.sourceFile);
+        long bestMemory = origMemory;
+
+        for (int step = 1; step <= numSteps; step++) {
+            Patch neighbour = neighbour(bestPatch);
+            UnitTestResultSet testResultSet = testRunner.runTests(neighbour, 1);
+
+            String msg;
+
+            if (!testResultSet.getValidPatch()) {
+                msg = "Patch invalid";
+            } else if (!testResultSet.getCleanCompile()) {
+                msg = "Failed to compile";
+            } else if (!testResultSet.allTestsSuccessful()) {
+                msg = "Failed to pass all tests";
+            } else if (testResultSet.totalMemoryUsage() >= bestMemory) {
+                msg = "Memory: " + testResultSet.totalMemoryUsage() + " Mbytes";
+            } else {
+                bestPatch = neighbour;
+                bestMemory = testResultSet.totalMemoryUsage();
+                msg = "New best memory consumption: " + bestMemory + " Mbytes ";
+            }
+
+            Logger.info(String.format("Step: %d, Patch: %s, %s ", step, neighbour, msg));
+        }
+
+        Logger.info(String.format("Finished. Best memory consumption: %d Mbytes, Memory reduction: %.2f%%, Patch: %s",
+                bestMemory,
+                100.0 * ((origMemory - bestMemory) / (1.0 * origMemory)),
+                bestPatch));
+
+        bestPatch.writePatchedSourceToFile(sourceFile.getRelativePathToWorkingDir() + ".optimised");
+    }
+
+    /**
+     * Generate a neighboring patch, either by deleting an edit or adding a new one.
+     *
+     * @param patch Generate a neighbor of this patch.
+     * @return A neighboring patch.
+     */
+    Patch neighbour(Patch patch) {
+        Patch neighbour = patch.clone();
+
+        if (neighbour.size() > 0 && rng.nextFloat() > 0.5) {
+            neighbour.remove(rng.nextInt(neighbour.size()));
+        } else {
+            neighbour.addRandomEditOfClasses(rng, editTypes);
+        }
+
+        return neighbour;
+    }
+}
+
+\end{lstlisting}
+
+
+\section{The \texttt{LocalSearch} java code for Tactic 3: Minimising Execution Time and minimising Memory Consumption together}\label{sec:LocalSearch_Time_Memory}
+
+\begin{lstlisting}
+package gin;
+
+import com.sampullara.cli.Args;
+import com.sampullara.cli.Argument;
+import gin.edit.Edit;
+import gin.edit.Edit.EditType;
+import gin.test.InternalTestRunner;
+import gin.test.UnitTestResult;
+import gin.test.UnitTestResultSet;
+import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.rng.simple.JDKRandomBridge;
+import org.apache.commons.rng.simple.RandomSource;
+import org.pmw.tinylog.Logger;
+
+import java.io.File;
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
+import java.util.Scanner;
+
+public class LocalSearch implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = -92020344633720482L;
+
+    private static final int WARMUP_REPS = 10;
+
+    @Argument(alias = "f", description = "Required: Source filename", required = true)
+    protected File filename = null;
+
+    @Argument(alias = "m", description = "Required: Method signature including arguments." +
+            "For example, \"classifyTriangle(int,int,int)\"", required = true)
+    protected String methodSignature = "";
+
+    @Argument(alias = "s", description = "Seed")
+    protected Integer seed = 123;
+
+    @Argument(alias = "n", description = "Number of steps")
+    protected Integer numSteps = 100;
+
+    @Argument(alias = "d", description = "Top directory")
+    protected File packageDir;
+
+    @Argument(alias = "c", description = "Class name")
+    protected String className;
+
+    @Argument(alias = "cp", description = "Classpath")
+    protected String classPath;
+
+    @Argument(alias = "t", description = "Test class name")
+    protected String testClassName;
+
+    @Argument(alias = "et", description = "Edit type: this can be a member of the EditType enum (LINE,STATEMENT,MATCHED_STATEMENT,MODIFY_STATEMENT); the fully qualified name of a class that extends gin.edit.Edit, or a comma-separated list of both")
+    protected String editType = EditType.LINE.toString();
+
+    /**
+     * allowed edit types for sampling: parsed from editType
+     */
+    protected List<Class<? extends Edit>> editTypes;
+
+    @Argument(alias = "ff", description = "Fail fast. "
+            + "If set to true, the tests will stop at the first failure and the next patch will be executed. "
+            + "You probably don't want to set this to true for Automatic Program Repair.")
+    protected Boolean failFast = false;
+
+    protected SourceFile sourceFile;
+    protected Random rng;
+    InternalTestRunner testRunner;
+
+    // Constructor parses arguments
+    LocalSearch(String[] args) {
+        Args.parseOrExit(this, args);
+        editTypes = Edit.parseEditClassesFromString(editType);
+
+        this.sourceFile = SourceFile.makeSourceFileForEditTypes(editTypes, this.filename.toString(), Collections.singletonList(this.methodSignature));
+
+        this.rng = new JDKRandomBridge(RandomSource.MT, Long.valueOf(seed));
+        if (this.packageDir == null) {
+            this.packageDir = (this.filename.getParentFile() != null) ? this.filename.getParentFile().getAbsoluteFile() : new File(System.getProperty("user.dir"));
+        }
+        if (this.classPath == null) {
+            this.classPath = this.packageDir.getAbsolutePath();
+        }
+        if (this.className == null) {
+            this.className = FilenameUtils.removeExtension(this.filename.getName());
+        }
+        if (this.testClassName == null) {
+            this.testClassName = this.className + "Test";
+        }
+        this.testRunner = new InternalTestRunner(className, classPath, testClassName, failFast);
+    }
+
+    // Instantiate a class and call search
+    public static void main(String[] args) {
+        LocalSearch localSearch = new LocalSearch(args);
+        localSearch.executeSearch();
+    }
+
+    // Apply empty patch and return execution time
+    private long timeOriginalCode() {
+        Patch emptyPatch = new Patch(this.sourceFile);
+        UnitTestResultSet resultSet = testRunner.runTests(emptyPatch, WARMUP_REPS);
+
+        if (!resultSet.allTestsSuccessful()) {
+            if (!resultSet.getCleanCompile()) {
+                Logger.error("Original code failed to compile");
+            } else {
+                Logger.error("Original code failed to pass unit tests");
+                for (UnitTestResult testResult : resultSet.getResults()) {
+                    Logger.error(testResult);
+                }
+            }
+            System.exit(0);
+        }
+
+        return resultSet.totalExecutionTime() / WARMUP_REPS;
+    }
+
+    // Apply empty patch and return memory consumption
+    private long memoryOriginalCode() {
+        Patch emptyPatch = new Patch(this.sourceFile);
+        UnitTestResultSet resultSet = testRunner.runTests(emptyPatch, WARMUP_REPS);
+
+        if (!resultSet.allTestsSuccessful()) {
+            if (!resultSet.getCleanCompile()) {
+                Logger.error("Original code failed to compile");
+            } else {
+                Logger.error("Original code failed to pass unit tests");
+                for (UnitTestResult testResult : resultSet.getResults()) {
+                    Logger.error(testResult);
+                }
+            }
+            System.exit(0);
+        }
+
+        return resultSet.totalMemoryUsage() / WARMUP_REPS;
+    }
+
+    // Method to get the memory consumption corresponding to a given execution time
+    private long memoryForTime(long time) {
+        Patch patchForTime = new Patch(this.sourceFile);
+        UnitTestResultSet resultSet = testRunner.runTests(patchForTime, WARMUP_REPS);
+
+        long startTime = System.nanoTime();
+        while (System.nanoTime() - startTime < time) {
+            // Running the patch for the specified time
+        }
+
+        return resultSet.totalMemoryUsage() / WARMUP_REPS;
+    }
+
+    // Method to get the execution time corresponding to a given memory consumption
+    private long timeForMemory(long memory) {
+        Patch patchForMemory = new Patch(this.sourceFile);
+        UnitTestResultSet resultSet = testRunner.runTests(patchForMemory, WARMUP_REPS);
+
+        long startTime = System.nanoTime();
+        while (resultSet.totalMemoryUsage() / WARMUP_REPS < memory) {
+            // Running the patch until it reaches the specified memory consumption
+        }
+
+        return System.nanoTime() - startTime;
+    }
+
+    // Simple local search
+    private void executeSearch() {
+        Logger.info(String.format("Localsearch on file: %s method: %s", filename, methodSignature));
+
+        // Time original code
+        long origTime = timeOriginalCode();
+        Logger.info("Original execution time: " + origTime + " ns");
+
+        // Memory consumption of original code
+        long origMemory = memoryOriginalCode();
+        Logger.info("Original memory consumption: " + origMemory + " Mbytes");
+
+        // Start with empty patch
+        Patch bestPatch = new Patch(this.sourceFile);
+        long bestTime = origTime;
+        long bestMemory = origMemory;
+        
+        // Initializing the best score to be maximum (worst case)
+        double bestScore = Double.MAX_VALUE;
+        
+        for (int step = 1; step <= numSteps; step++) {
+            Patch neighbour = neighbour(bestPatch);
+
+            // Time execution for the neighbor
+            UnitTestResultSet testResultSet = testRunner.runTests(neighbour, 1);
+
+            String msg;
+
+            if (!testResultSet.getValidPatch()) {
+                msg = "Patch invalid";
+            } else if (!testResultSet.getCleanCompile()) {
+                msg = "Failed to compile";
+            } else if (!testResultSet.allTestsSuccessful()) {
+                msg = "Failed to pass all tests";
+            } else {
+                long newTime = testResultSet.totalExecutionTime();
+                long newMemory = testResultSet.totalMemoryUsage();
+                
+                // Normalize the time and memory consumption (assuming smaller is better for both)
+                double normTime = (double)newTime / origTime;
+                double normMemory = (double)newMemory / origMemory;
+                
+                // Sum of normalized time and memory can be your score
+                double newScore = normTime + normMemory;
+
+                if (newScore < bestScore) {
+                    bestPatch = neighbour;
+                    bestScore = newScore;
+                    bestTime = newTime;
+                    bestMemory = newMemory;
+                    msg = String.format("New best score: %.2f, with time: %d (ns) and memory: %d (Mbytes)", bestScore, bestTime, bestMemory);
+                } else {
+                    msg = String.format("Score: %.2f, with time: %d (ns) and memory: %d (Mbytes)", newScore, newTime, newMemory);
+                }
+            }
+
+            Logger.info(String.format("Step: %d, Patch: %s, %s", step, neighbour, msg));
+        }
+
+        System.out.println("\n");
+
+        Logger.info(String.format("Finished. Best time: %d (ns), Speedup (%%): %.2f, Best memory consumption: %d Mbytes, Memory reduction: %.2f%%, Patch: %s",
+                bestTime,
+                100.0 * ((origTime - bestTime) / (1.0 * origTime)),
+                bestMemory,
+                100.0 * ((origMemory - bestMemory) / (1.0 * origMemory)),
+                bestPatch));
+
+        bestPatch.writePatchedSourceToFile(sourceFile.getRelativePathToWorkingDir() + ".optimised");
+    }
+
+
+
+    /**
+     * Generate a neighboring patch, either by deleting an edit or adding a new one.
+     *
+     * @param patch Generate a neighbor of this patch.
+     * @return A neighboring patch.
+     */
+    Patch neighbour(Patch patch) {
+        Patch neighbour = patch.clone();
+
+        if (neighbour.size() > 0 && rng.nextFloat() > 0.5) {
+            neighbour.remove(rng.nextInt(neighbour.size()));
+        } else {
+            neighbour.addRandomEditOfClasses(rng, editTypes);
+        }
+
+        return neighbour;
+    }
+}
+
+\end{lstlisting}
+
+\section{The \texttt{Triangle} java code}\label{sec:triangle}
+
+\begin{lstlisting}
+import java.util.Arrays;
+
+public class Triangle {
+    static final int INVALID = 0;
+    static final int SCALENE = 1;
+    static final int EQUALATERAL = 2;
+    static final int ISOCELES = 3;
+
+    public static int classifyTriangle(int a, int b, int c) {
+
+        // Consume more memory by creating a large array
+        int[] largeArray = new int[1000000];
+        Arrays.fill(largeArray, 0);
+
+        delay();
+
+        // Sort the sides so that a <= b <= c
+        if (a > b) {
+            int tmp = a;
+            a = b;
+            b = tmp;
+        }
+
+        if (a > c) {
+            int tmp = a;
+            a = c;
+            c = tmp;
+        }
+
+        if (b > c) {
+            int tmp = b;
+            b = c;
+            c = tmp;
+        }
+
+        if (a + b <= c) {
+            return INVALID;
+        } else if (a == b && b == c) {
+            return EQUALATERAL;
+        } else if (a == b || b == c) {
+            return ISOCELES;
+        } else {
+            return SCALENE;
+        }
+
+    }
+
+    private static void delay() {
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+
+        }
+    }
+}
+\end{lstlisting}
+
+\section{The \texttt{Greatest Common Divisor (GCD)} java code}\label{sec:GCD}
+
+\begin{lstlisting}
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Random;
+
+public class GCD {
+
+    static final int INVALID = -1;
+
+    public static int findGCD(int a, int b, int c) {
+
+        // Consume more memory by creating a large ArrayList with random values
+        ArrayList<Integer> largeList = new ArrayList<>(1000000);
+        Random random = new Random();
+        for (int i = 0; i < 1000000; i++) {
+            largeList.add(random.nextInt());
+        }
+
+        complexComputation(); // Introduce a complex computation
+
+        // Ensure that a, b, and c are positive
+        if (a <= 0 || b <= 0 || c <= 0) {
+            return INVALID;
+        }
+
+        // Increasing the loop size to consume more execution time
+        for (int i = 0; i < 10000; i++) { 
+            double temp = Math.sqrt(i) * Math.log(i + 1); // More complex unused computation
+        }
+
+        // Find the GCD of a and b
+        int gcdAB = gcd(a, b);
+
+        // Find the GCD of gcdAB and c
+        return gcd(gcdAB, c);
+    }
+
+    private static int gcd(int a, int b) {
+        if (b == 0) {
+            return a;
+        }
+        return gcd(b, a % b);
+    }
+
+    private static void complexComputation() {
+        // Increasing sleep time and adding more computations
+        try {
+            Thread.sleep(200); // Increased sleep time
+        } catch (InterruptedException e) {
+
+        }
+
+        // Perform complex computations
+        double sum = 0;
+        for (int i = 0; i < 1000; i++) {
+            for (int j = 0; j < 1000; j++) {
+                sum += Math.sin(i) * Math.cos(j);
+            }
+        }
+    }
+}
+\end{lstlisting}
+
+\section{The \texttt{Rectangle} java code} \label{sec:rectangle}
+
+\begin{lstlisting}
+import java.util.Arrays;
+
+public class Rectangle {
+    
+    static final int INVALID = 0;
+    static final int RECTANGLE = 1;
+    static final int SQUARE = 2;
+
+    public static int classifyRectangle(int a, int b, int c, int d) {
+        // Consume more memory by creating a large array
+        int[] largeArray = new int[1000000];
+        Arrays.fill(largeArray, 0);
+        
+        // Adding a delay
+        try {
+            // Pausing for 2 seconds (2000 milliseconds)
+            Thread.sleep(200);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // A rectangle or square will be invalid if any side length is less than or equal to 0
+        if(a <= 0 || b <= 0 || c <= 0 || d <= 0){
+            return INVALID;
+        }
+
+        // If all sides are equal
+        else if(a == b && b == c && c == d){
+            return SQUARE;
+        }
+
+        // If opposite sides are equal
+        else if(a == c && b == d){
+            return RECTANGLE;
+        }
+
+        // If the given sides can't form a rectangle or square
+        else{
+            return INVALID;
+        }
+    }
+}
+\end{lstlisting}
